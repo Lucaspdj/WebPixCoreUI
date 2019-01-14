@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Net;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using WebPixCoreUI.Models;
@@ -34,9 +35,17 @@ namespace WebPixCoreUI.Controllers
             var client = new WebClient { Encoding = System.Text.Encoding.UTF8 };
             var result = client.DownloadString(string.Format(urlAPIIn));
             var jss = new System.Web.Script.Serialization.JavaScriptSerializer();
-            PageViewModel[] Pagina = jss.Deserialize<PageViewModel[]>(result);
+            PageViewModel[] pageView = jss.Deserialize<PageViewModel[]>(result);
+            List<PageViewModel> Pages = new List<PageViewModel>();
 
-            var modelo = Pagina.Where(x => x.ID == id).FirstOrDefault();
+            foreach (PageViewModel page in pageView)
+            {
+                byte[] report = Convert.FromBase64String(page.Conteudo);
+                page.Conteudo = Encoding.UTF8.GetString(report);
+                Pages.Add(page);
+            }
+
+            var modelo = Pages.Where(x => x.ID == id).FirstOrDefault();
 
            ViewBag.Title = modelo.Titulo;
 

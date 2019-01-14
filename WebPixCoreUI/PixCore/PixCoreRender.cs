@@ -114,10 +114,10 @@ namespace WebPixCoreUI.PixCore {
             var urlDoCliente = "";
 
             if (porta != 80) {
-                urlDoCliente = protocolo + "://" + url + ":" + porta.ToString () + HttpContext.Current.Request.Url.PathAndQuery;
+                urlDoCliente = protocolo + "://" + url + ":" + porta.ToString () + HttpContext.Current.Request.Url.LocalPath;
                 DefaultSiteUrl = protocolo + "://" + url + ":" + porta.ToString () + "/";
             } else {
-                urlDoCliente = protocolo + "://" + url + HttpContext.Current.Request.Url.PathAndQuery;
+                urlDoCliente = protocolo + "://" + url + HttpContext.Current.Request.Url.LocalPath;
                 DefaultSiteUrl = protocolo + "://" + url + "/";
             }
 
