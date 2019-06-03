@@ -114,10 +114,10 @@ namespace WebPixCoreUI.PixCore {
             var urlDoCliente = "";
 
             if (porta != 80) {
-                urlDoCliente = protocolo + "://" + url + ":" + porta.ToString () + HttpContext.Current.Request.Url.LocalPath;
+                urlDoCliente = protocolo + "://" + url + ":" + porta.ToString () + HttpContext.Current.Request.Url.PathAndQuery;
                 DefaultSiteUrl = protocolo + "://" + url + ":" + porta.ToString () + "/";
             } else {
-                urlDoCliente = protocolo + "://" + url + HttpContext.Current.Request.Url.LocalPath;
+                urlDoCliente = protocolo + "://" + url + HttpContext.Current.Request.Url.PathAndQuery;
                 DefaultSiteUrl = protocolo + "://" + url + "/";
             }
 
@@ -174,7 +174,7 @@ namespace WebPixCoreUI.PixCore {
                     user.IdUsuario = Usuario.ID;
 
                     if (current.Request.Cookies["UsuarioLogado"] != null) {
-                        cookievalue = current.Request.Cookies["UsuarioLogado"].ToString ();
+                        cookievalue = current.Request.Cookies["UsuarioLogado"].ToString();
                     } else {
                         current.Response.Cookies["UsuarioLogado"].Value = jss.Serialize (user);
                         current.Response.Cookies["UsuarioLogado"].Expires = DateTime.Now.AddMinutes (30); // add expiry time
@@ -195,7 +195,7 @@ namespace WebPixCoreUI.PixCore {
                 return Usuario;
             } else {
                 //current.Response.Redirect("http://localhost:49983/login/login");
-                return new LoginViewModel ();
+                return new LoginViewModel();
             }
         }
     }
